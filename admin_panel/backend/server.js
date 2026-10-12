@@ -26,9 +26,14 @@
  *   DELETE /api/admin/datasets/:id – delete dataset (admin JWT required)
  */
 
-import 'dotenv/config';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 import { connectDB } from './config/db.js';
 import { ensureAdminUser } from './config/seedAdmin.js';
