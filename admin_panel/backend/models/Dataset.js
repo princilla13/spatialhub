@@ -11,6 +11,16 @@ const datasetFileSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const sharedUserSchema = new mongoose.Schema(
+  {
+    email: { type: String, required: true, lowercase: true, trim: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    note: { type: String, default: '', trim: true },
+    sharedAt: { type: Date, default: Date.now },
+  },
+  { _id: true }
+);
+
 const datasetSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -24,6 +34,7 @@ const datasetSchema = new mongoose.Schema(
     downloadUrl: { type: String, default: null },
     pointCount: { type: Number, default: 0 },
     files: { type: [datasetFileSchema], default: [] },
+    sharedWith: { type: [sharedUserSchema], default: [] },
   },
   { timestamps: true }
 );

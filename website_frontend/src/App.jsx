@@ -5,6 +5,7 @@ import PlansPage from './pages/PlansPage';
 import TermsPage from './pages/TermsPage';
 import ReportAbusePage from './pages/ReportAbusePage';
 import HubPage from './pages/HubPage';
+import SharedDatasetPage from './pages/SharedDatasetPage';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Route path="/terms-of-service" element={<TermsPage />} />
       <Route path="/report-abuse" element={<ReportAbusePage />} />
       <Route path="/hub" element={<HubPage />} />
+      <Route path="/shared/:id" element={<SharedDatasetPage />} />
       <Route path="/dashboard" element={<Navigate to="/hub" replace />} />
       <Route path="*" element={<HomePage />} />
     </Routes>

@@ -21,6 +21,24 @@ export async function protect(req, res, next) {
 }
 
 /**
+ * Optional authentication – populates req.user if valid token is provided, continues otherwise.
+ */
+export async function optionalAuth(req, _res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return next();
+  }
+  try {
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select('-password');
+  } catch {
+    // Continue unauthenticated if token is invalid or expired
+  }
+  next();
+}
+
+/**
  * Restrict to admin role only.
  */
 export function adminOnly(req, res, next) {
